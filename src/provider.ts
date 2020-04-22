@@ -1,39 +1,22 @@
-import EventEmitter from 'eventemitter3';
+import BasicProvider from 'basic-provider';
 
-import { payloadId } from './utils';
 import { IRpcConnection, IStarkwareProvider } from './interfaces';
 import { Token, TransferParams, OrderParams } from './types';
 
 // -- StarkwareProvider ---------------------------------------------------- //
 
-class StarkwareProvider extends EventEmitter implements IStarkwareProvider {
-  private _connected = false;
-  private connection: IRpcConnection;
+class StarkwareProvider extends BasicProvider implements IStarkwareProvider {
   private path: string | undefined;
 
   public contractAddress: string;
   public starkPublicKey: string | undefined;
 
   constructor(connection: IRpcConnection, contractAddress: string) {
-    super();
-    this.connection = connection;
+    super(connection);
     this.contractAddress = contractAddress;
   }
 
   // -- public ---------------------------------------------------------------- //
-
-  set connected(value: boolean) {
-    this._connected = value;
-    if (value === true) {
-      this.emit('connect');
-    } else {
-      this.emit('close');
-    }
-  }
-
-  get connected(): boolean {
-    return this._connected;
-  }
 
   public async enable(path: string): Promise<string> {
     try {
@@ -44,40 +27,9 @@ class StarkwareProvider extends EventEmitter implements IStarkwareProvider {
       this.emit('enable');
       return starkPublicKey;
     } catch (err) {
-      this.connected = false;
-      this.connection.close();
+      await this.close();
       throw err;
     }
-  }
-
-  public async send(method: string, params: any = {}): Promise<any> {
-    return this.connection.send({
-      id: payloadId(),
-      jsonrpc: '2.0',
-      method,
-      params,
-    });
-  }
-
-  public open(): void {
-    new Promise((resolve, reject) => {
-      this.connection.on('close', () => {
-        this.connected = false;
-        reject();
-      });
-
-      this.connection.on('connect', () => {
-        this.connected = true;
-        resolve();
-      });
-
-      this.connection.open();
-    });
-  }
-
-  public close(): void {
-    this.connected = false;
-    this.connection.close();
   }
 
   public async updateAccount(path: string): Promise<string> {

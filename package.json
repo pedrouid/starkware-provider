@@ -37,7 +37,7 @@
     "prepare": "yarn lint && yarn build && yarn test"
   },
   "dependencies": {
-    "eventemitter3": "4.0.0",
+    "basic-provider": "1.1.0",
     "starkware-types": "1.0.0"
   },
   "devDependencies": {

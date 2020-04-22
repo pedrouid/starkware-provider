@@ -21,21 +21,20 @@ const starkPublicKey = await provider.enable();
 
 ```typescript
 class StarkwareProvider {
-  // provider properties
+  // connection properties
   connected: boolean;
+
+  // provider properties
   contractAddress: string;
   starkPublicKey?: string;
 
   // connection methods
   send(method: string, params?: any): Promise<any>;
-  open(): void;
-  close(): void;
+  open(): Promise<void>;
+  close(): Promise<void>;
 
   // provider methods
   enable(path: string): Promise<string>;
-  send(method: string, params?: any): Promise<any>;
-  open(): void;
-  close(): void;
   updateAccount(path: string): Promise<string>;
   getActiveAccount(): Promise<string>;
   getAccount(path: string): Promise<string>;

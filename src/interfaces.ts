@@ -1,30 +1,23 @@
-import EventEmitter from 'eventemitter3';
+import BasicProvider from 'basic-provider';
 import { Token, TransferParams, OrderParams } from './types';
 
-export interface IRpcConnection extends NodeJS.EventEmitter {
+export { IRpcConnection } from 'basic-provider';
+
+export interface IStarkwareProvider extends BasicProvider {
+  // connection properties
   connected: boolean;
 
-  send(payload: any): Promise<any>;
-  open(): Promise<void>;
-  close(): Promise<void>;
-}
-
-export interface IStarkwareProvider extends EventEmitter {
   // provider properties
-  connected: boolean;
   contractAddress: string;
   starkPublicKey?: string;
 
   // connection methods
   send(method: string, params?: any): Promise<any>;
-  open(): void;
-  close(): void;
+  open(): Promise<void>;
+  close(): Promise<void>;
 
   // provider methods
   enable(path: string): Promise<string>;
-  send(method: string, params?: any): Promise<any>;
-  open(): void;
-  close(): void;
   updateAccount(path: string): Promise<string>;
   getActiveAccount(): Promise<string>;
   getAccount(path: string): Promise<string>;
