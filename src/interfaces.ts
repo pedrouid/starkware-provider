@@ -1,5 +1,5 @@
 import BasicProvider from 'basic-provider';
-import { AccountParams, Token, TransferParams, OrderParams } from './types';
+import { Token, TransferParams, OrderParams } from './types';
 
 export { IRpcConnection } from 'basic-provider';
 
