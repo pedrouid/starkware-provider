@@ -34,10 +34,18 @@ class StarkwareProvider {
   close(): Promise<void>;
 
   // provider methods
-  enable(path: string): Promise<string>;
-  updateAccount(path: string): Promise<string>;
+  enable(layer: string, application: string, index: string): Promise<string>;
+  updateAccount(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string>;
   getActiveAccount(): Promise<string>;
-  getAccount(path: string): Promise<string>;
+  getAccount(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string>;
   register(operatorSignature: string): Promise<string>;
   deposit(
     quantizedAmount: string,
@@ -81,6 +89,12 @@ interface IRpcConnection extends NodeJS.EventEmitter {
   send(payload: any): Promise<any>;
   open(): Promise<void>;
   close(): Promise<void>;
+}
+
+interface AccountParams {
+  layer: string;
+  application: string;
+  index: string;
 }
 
 interface ETHTokenData {

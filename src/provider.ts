@@ -1,12 +1,20 @@
 import BasicProvider from 'basic-provider';
 
 import { IRpcConnection, IStarkwareProvider } from './interfaces';
-import { Token, TransferParams, OrderParams } from './types';
+import { AccountParams, Token, TransferParams, OrderParams } from './types';
+
+function matches(a: any, b: any): boolean {
+  let match = true;
+  Object.keys(a).forEach(key => {
+    if (a[key] !== b[key]) match = false;
+  });
+  return match;
+}
 
 // -- StarkwareProvider ---------------------------------------------------- //
 
 class StarkwareProvider extends BasicProvider implements IStarkwareProvider {
-  private path: string | undefined;
+  private accountParams: AccountParams | undefined;
 
   public contractAddress: string;
   public starkPublicKey: string | undefined;
@@ -18,12 +26,20 @@ class StarkwareProvider extends BasicProvider implements IStarkwareProvider {
 
   // -- public ---------------------------------------------------------------- //
 
-  public async enable(path: string): Promise<string> {
+  public async enable(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string> {
     try {
       if (!this.connected) {
         await this.open();
       }
-      const starkPublicKey = await this.updateAccount(path);
+      const starkPublicKey = await this.updateAccount(
+        layer,
+        application,
+        index
+      );
       this.emit('enable');
       return starkPublicKey;
     } catch (err) {
@@ -32,30 +48,44 @@ class StarkwareProvider extends BasicProvider implements IStarkwareProvider {
     }
   }
 
-  public async updateAccount(path: string): Promise<string> {
-    if (this.starkPublicKey && path === this.path) {
+  public async updateAccount(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string> {
+    const accountParams: AccountParams = { layer, application, index };
+    if (this.starkPublicKey && matches(this.accountParams, accountParams)) {
       return this.starkPublicKey;
     }
-    const starkPublicKey = await this.getAccount(path);
+    const starkPublicKey = await this.getAccount(layer, application, index);
     return starkPublicKey;
   }
 
   public async getActiveAccount(): Promise<string> {
-    if (!this.path) {
+    if (!this.accountParams) {
       throw new Error(
-        'No StarkPublicKey avaialable - please call provider.enable()'
+        'No StarkPublicKey available - please call provider.enable()'
       );
     }
     if (this.starkPublicKey) {
       return this.starkPublicKey;
     }
-    const starkPublicKey = await this.getAccount(this.path);
+    const { layer, application, index } = this.accountParams;
+    const starkPublicKey = await this.getAccount(layer, application, index);
     return starkPublicKey;
   }
 
-  public async getAccount(path: string): Promise<string> {
-    this.path = path;
-    const { starkPublicKey } = await this.send('stark_account', { path });
+  public async getAccount(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string> {
+    this.accountParams = { layer, application, index };
+    const { starkPublicKey } = await this.send('stark_account', {
+      layer,
+      application,
+      index,
+    });
     this.starkPublicKey = starkPublicKey;
     return starkPublicKey;
   }

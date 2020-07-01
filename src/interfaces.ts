@@ -1,5 +1,5 @@
 import BasicProvider from 'basic-provider';
-import { Token, TransferParams, OrderParams } from './types';
+import { AccountParams, Token, TransferParams, OrderParams } from './types';
 
 export { IRpcConnection } from 'basic-provider';
 
@@ -17,10 +17,18 @@ export interface IStarkwareProvider extends BasicProvider {
   close(): Promise<void>;
 
   // provider methods
-  enable(path: string): Promise<string>;
-  updateAccount(path: string): Promise<string>;
+  enable(layer: string, application: string, index: string): Promise<string>;
+  updateAccount(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string>;
   getActiveAccount(): Promise<string>;
-  getAccount(path: string): Promise<string>;
+  getAccount(
+    layer: string,
+    application: string,
+    index: string
+  ): Promise<string>;
   register(operatorSignature: string): Promise<string>;
   deposit(
     quantizedAmount: string,
