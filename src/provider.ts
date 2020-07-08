@@ -4,6 +4,7 @@ import { IRpcConnection, IStarkwareProvider } from './interfaces';
 import { AccountParams, Token, TransferParams, OrderParams } from './types';
 
 function matches(a: any, b: any): boolean {
+  if (typeof a !== typeof b) return false;
   let match = true;
   Object.keys(a).forEach(key => {
     if (a[key] !== b[key]) match = false;
@@ -32,9 +33,7 @@ class StarkwareProvider extends BasicProvider implements IStarkwareProvider {
     index: string
   ): Promise<string> {
     try {
-      if (!this.connected) {
-        await this.open();
-      }
+      await this.open();
       const starkPublicKey = await this.updateAccount(
         layer,
         application,
