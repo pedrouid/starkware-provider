@@ -50,7 +50,18 @@ export class MockRpcConnection extends EventEmitter implements IRpcConnection {
   }
 
   public async send(payload: any) {
-    return this.walletController.resolve(payload);
+    const res: any = await this.walletController.resolve(payload);
+    if (res.result) {
+      return res.result;
+    } else {
+      if (res.error && res.error.message) {
+        throw new Error(res.error.message);
+      } else {
+        throw new Error(
+          `Failed JSON-RPC request with method: ${payload.method}`
+        );
+      }
+    }
   }
 }
 

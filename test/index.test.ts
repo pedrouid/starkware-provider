@@ -25,4 +25,13 @@ describe('starkware-provider', () => {
     expect(result).toBeTruthy();
     expect(result).toEqual(starkPublicKey);
   });
+  it('should send successfully', async () => {
+    const result = await provider.send('stark_account', {
+      layer,
+      application,
+      index,
+    });
+    expect(result).toBeTruthy();
+    expect(result.starkPublicKey).toEqual(starkPublicKey);
+  });
 });
