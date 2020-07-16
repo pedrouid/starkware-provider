@@ -11,15 +11,14 @@ export function exportRecoveryParam(
     : null;
 }
 
-export function importRecoveryParam(v: string): number {
-  return new BN(v, 16).sub(new BN(27)).toNumber();
+export function importRecoveryParam(v: string): number | undefined {
+  return v.trim() ? new BN(v, 16).sub(new BN(27)).toNumber() : undefined;
 }
 
 export function serializeSignature(sig: SignatureOptions): string {
+  const v = exportRecoveryParam(sig.recoveryParam);
   return encUtils.addHexPrefix(
-    sig.r.toString(16) +
-      sig.s.toString(16) +
-      exportRecoveryParam(sig.recoveryParam)
+    sig.r.toString(16) + sig.s.toString(16) + v || ''
   );
 }
 
