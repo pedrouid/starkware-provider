@@ -37,8 +37,9 @@
     "prepare": "yarn lint && yarn build && yarn test"
   },
   "dependencies": {
-    "basic-provider": "1.5.0",
-    "starkware-types": "1.1.0"
+    "basic-provider": "1.6.1",
+    "enc-utils": "2.2.1",
+    "starkware-types": "1.2.0"
   },
   "devDependencies": {
     "@types/jest": "25.1.1",
