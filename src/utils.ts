@@ -5,8 +5,10 @@ import { SignatureOptions } from './types';
 
 export function exportRecoveryParam(
   recoveryParam: number | null | undefined
-): string {
-  return new BN(recoveryParam || 0).add(new BN(27)).toString(16);
+): string | null {
+  return typeof recoveryParam === 'number'
+    ? new BN(recoveryParam).add(new BN(27)).toString(16)
+    : null;
 }
 
 export function importRecoveryParam(v: string): number {
