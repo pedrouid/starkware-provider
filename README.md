@@ -130,4 +130,17 @@ interface OrderParams {
   token: Token;
   quantizedAmount: string;
 }
+
+interface SignatureOptions {
+  r: BN;
+  s: BN;
+  recoveryParam: number | null | undefined;
+}
+```
+
+## Utils
+
+```typescript
+function serializeSignature(sig: SignatureOptions): string;
+function deserializeSignature(sig: string): SignatureOptions;
 ```
