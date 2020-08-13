@@ -39,7 +39,7 @@
   "dependencies": {
     "basic-provider": "^1.6.1",
     "enc-utils": "^2.2.2",
-    "rsv-signature": "^1.0.0",
+    "rsv-signature": "^1.1.0",
     "starkware-types": "^1.2.0"
   },
   "devDependencies": {
