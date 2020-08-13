@@ -2175,7 +2175,7 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
-basic-provider@1.6.1:
+basic-provider@^1.6.1:
   version "1.6.1"
   resolved "https://registry.yarnpkg.com/basic-provider/-/basic-provider-1.6.1.tgz#43e0add35dcfe621b8a0993fd76e7f7d3e8509bd"
   integrity sha512-KBcKOipTQkNWN4Y9tfxTSmNr+W2mejDJOh0Q5gPSlnHQP/L12kBSGV0NvPUZL9faQOobFwRY1m9ofwWUtW2H3w==
@@ -2241,7 +2241,7 @@ bn.js@5.1.2, bn.js@^5.1.2:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.1.2.tgz#c9686902d3c9a27729f43ab10f9d79c2004da7b0"
   integrity sha512-40rZaf3bUNKTVYu9sIeeEGOg7g14Yvnj9kH7b50EiwX0Q7A6umbvfI5tvHaOERH0XigqKkfLkFQxzb4e6CIXnA==
 
-bn.js@^4.11.1:
+bn.js@^4.11.1, bn.js@^4.8.0:
   version "4.11.9"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.9.tgz#26d556829458f9d1e81fc48952493d0ba3507828"
   integrity sha512-E6QoYqCKZfgatHTdHzs1RRKP7ip4vvm+EyRUeE2RF0NblwVvb0p6jSVeNTOFxPn26QXN2o6SMfNxKp6kU8zQaw==
@@ -3141,6 +3141,15 @@ enc-utils@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/enc-utils/-/enc-utils-2.2.1.tgz#4e3530fde49afc06b5aa71522b9846cbf88ffdd4"
   integrity sha512-BU+BGgm7xt8jSgpIgiKnxnYT4gNY52hD2QBmSFbOy7xw7PYp1UmnhsSeWFe/OVdm7qL+hJI1QvpOWAV3JqshbQ==
+  dependencies:
+    bn.js "4.11.8"
+    is-typedarray "1.0.0"
+    typedarray-to-buffer "3.1.5"
+
+enc-utils@^2.2.1, enc-utils@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/enc-utils/-/enc-utils-2.2.2.tgz#d191619b077d1314ef319a9962640a0fcf9eb13b"
+  integrity sha512-gdWLQsnxYYhFRPrSCPrxsqX/4xXxAcb+63u65pdBBmCA/GKhGfZjXKKWse6UfMXc8Nlvz6jKPtRoCDhYo8Kiaw==
   dependencies:
     bn.js "4.11.8"
     is-typedarray "1.0.0"
@@ -6792,6 +6801,14 @@ rollup@^1.27.8:
     "@types/node" "*"
     acorn "^7.1.0"
 
+rsv-signature@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/rsv-signature/-/rsv-signature-1.0.0.tgz#10a567ef033b210a6b8d9143b31c057ca664aa7e"
+  integrity sha512-wLVMD2kFxgzMXAXl7xSHQucK0PPB5mCZDV+g4hhtfOgc5Q56ClMXrQ+oQPyLPtfPqb4bjPGtEv9oFwdC7yc97w==
+  dependencies:
+    bn.js "^4.8.0"
+    enc-utils "^2.2.1"
+
 rsvp@^4.8.4:
   version "4.8.5"
   resolved "https://registry.yarnpkg.com/rsvp/-/rsvp-4.8.5.tgz#c8f155311d167f68f21e168df71ec5b083113734"
@@ -7190,7 +7207,7 @@ starkware-types@1.1.0:
   resolved "https://registry.yarnpkg.com/starkware-types/-/starkware-types-1.1.0.tgz#edb34c6362c85ce2835de52adf4bfdefbadf9ca4"
   integrity sha512-UYxsvcXwMEGyNbn3R+H93oLxfn2fKbiWX8VJpi1Nnh7vqAVv877KITO4ZDdZQ2zm3vyp7KqLd+Mvw/kQSh406g==
 
-starkware-types@1.2.0:
+starkware-types@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/starkware-types/-/starkware-types-1.2.0.tgz#b32aafdb285819c98d076083e240cca9ab97e900"
   integrity sha512-6/G+VGJ59nzaNOOampAP/aAjgkzIeJBWIpIX8CJEnJwz5GaADk8hFTe9jv+yqpW4nAwPJk+THw1WvEoEaaR07A==
